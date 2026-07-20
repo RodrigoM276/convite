@@ -35,9 +35,19 @@
 
         <div class="actions">
           <button class="primary" id="rsvpButton" type="button">Confirmar presença</button>
-          <a class="secondary" id="mapButton" href="https://www.google.com/maps/search/?api=1&query=Par%C3%B3quia+S%C3%A3o+Jos%C3%A9+Parque+Guarani+S%C3%A3o+Paulo" target="_blank" rel="noopener">Ver localização</a>
           <button class="secondary" id="calendarButton" type="button">Adicionar à agenda</button>
           <button class="secondary" id="shareButton" type="button">Compartilhar convite</button>
+        </div>
+
+        <div class="quick-icons">
+          <a class="icon-chip" id="mapButton" href="https://www.google.com/maps/search/?api=1&query=Par%C3%B3quia+S%C3%A3o+Jos%C3%A9+Parque+Guarani+S%C3%A3o+Paulo" target="_blank" rel="noopener">
+            <span class="icon-circle" aria-hidden="true">⛪</span>
+            <small>Localização</small>
+          </a>
+          <button class="icon-chip" id="giftButton" type="button" aria-haspopup="dialog">
+            <span class="icon-circle" aria-hidden="true">🎁</span>
+            <small>Lista de presentes</small>
+          </button>
         </div>
 
         <div class="details">
@@ -46,9 +56,7 @@
           <article><span>📍</span><div><strong>Paróquia São José</strong><small>Parque Guarani — São Paulo/SP</small></div></article>
         </div>
 
-        <button class="gift-note" id="giftButton" type="button" aria-haspopup="dialog">
-          <span aria-hidden="true">🎁</span> Sua presença é o nosso maior presente.
-        </button>
+        <p class="gift-note">Sua presença é o nosso maior presente.</p>
       </div>
     </section>
   </main>
