@@ -1,0 +1,7 @@
+CONVITE INTERATIVO — LEIDE & RODRIGO
+
+1. Abra o arquivo index.html no navegador.
+2. Para publicar, envie todos os arquivos desta pasta para Netlify, Vercel ou GitHub Pages.
+3. No arquivo script.js, altere whatsappNumber para o número real dos noivos.
+4. Para música, coloque um arquivo chamado musica.mp3 na mesma pasta.
+5. Para trocar endereço, edite o link mapButton no arquivo index.html.

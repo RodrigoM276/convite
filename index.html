@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#596433" />
+  <meta name="description" content="Convite de casamento de Leide e Rodrigo." />
+  <title>Leide & Rodrigo — Convite de Casamento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="petals" aria-hidden="true"></div>
+
+  <main class="page-shell">
+    <section class="invite-card" aria-labelledby="couple-name">
+      <div class="image-wrap">
+        <img src="convite.png" alt="Convite de casamento de Leide e Rodrigo" class="invite-image" />
+        <button class="sound-button" id="soundButton" type="button" aria-label="Ativar música ambiente">♪</button>
+      </div>
+
+      <div class="interactive-panel">
+        <p class="eyebrow">Nosso grande dia</p>
+        <h1 id="couple-name">Leide <span>&</span> Rodrigo</h1>
+        <p class="message">Sob a bênção de Deus, convidamos você para celebrar conosco o início da nossa união.</p>
+
+        <div class="countdown" aria-label="Contagem regressiva para o casamento">
+          <div><strong id="days">00</strong><span>dias</span></div>
+          <div><strong id="hours">00</strong><span>horas</span></div>
+          <div><strong id="minutes">00</strong><span>minutos</span></div>
+          <div><strong id="seconds">00</strong><span>segundos</span></div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="rsvpButton" type="button">Confirmar presença</button>
+          <a class="secondary" id="mapButton" href="https://www.google.com/maps/search/?api=1&query=Par%C3%B3quia+S%C3%A3o+Jos%C3%A9+Parque+Guarani+S%C3%A3o+Paulo" target="_blank" rel="noopener">Ver localização</a>
+          <button class="secondary" id="calendarButton" type="button">Adicionar à agenda</button>
+          <button class="secondary" id="shareButton" type="button">Compartilhar convite</button>
+        </div>
+
+        <div class="details">
+          <article><span>📅</span><div><strong>19 de setembro de 2026</strong><small>Sábado</small></div></article>
+          <article><span>🕕</span><div><strong>18h00</strong><small>Cerimônia religiosa</small></div></article>
+          <article><span>📍</span><div><strong>Paróquia São José</strong><small>Parque Guarani — São Paulo/SP</small></div></article>
+        </div>
+
+        <p class="gift-note">Sua presença é o nosso maior presente.</p>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="rsvpModal" class="modal">
+    <form id="rsvpForm" method="dialog">
+      <button class="close" type="button" id="closeModal" aria-label="Fechar">×</button>
+      <p class="eyebrow">Confirmação</p>
+      <h2>Você estará conosco?</h2>
+      <label>Nome completo<input id="guestName" name="name" required autocomplete="name" /></label>
+      <label>Número de convidados<select id="guestCount" name="count"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+      <label>Mensagem aos noivos<textarea id="guestMessage" name="message" rows="3" placeholder="Escreva uma mensagem carinhosa..."></textarea></label>
+      <button class="primary full" type="submit">Enviar pelo WhatsApp</button>
+      <small class="hint">O número do WhatsApp pode ser alterado no arquivo <code>script.js</code>.</small>
+    </form>
+  </dialog>
+
+  <audio id="backgroundMusic" loop preload="none">
+    <!-- Adicione um arquivo chamado musica.mp3 nesta pasta para ativar a música. -->
+    <source src="musica.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
