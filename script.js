@@ -27,8 +27,15 @@ setInterval(updateCountdown, 1000);
 
 const modal = document.getElementById('rsvpModal');
 document.getElementById('rsvpButton').addEventListener('click', () => modal.showModal());
+
+// Fechamento genérico para todos os modais (botão × e clique fora)
+document.querySelectorAll('dialog.modal').forEach(dlg => {
+  dlg.addEventListener('click', event => { if (event.target === dlg) dlg.close(); });
+});
+document.querySelectorAll('[data-close]').forEach(button => {
+  button.addEventListener('click', () => document.getElementById(button.dataset.close).close());
+});
 document.getElementById('closeModal').addEventListener('click', () => modal.close());
-modal.addEventListener('click', event => { if (event.target === modal) modal.close(); });
 
 document.getElementById('rsvpForm').addEventListener('submit', event => {
   event.preventDefault();
@@ -41,22 +48,14 @@ document.getElementById('rsvpForm').addEventListener('submit', event => {
 });
 
 document.getElementById('calendarButton').addEventListener('click', () => {
-  const ics = [
-    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Leide e Rodrigo//Casamento//PT-BR','BEGIN:VEVENT',
-    'UID:casamento-leide-rodrigo-20260919@example.com',
-    'DTSTAMP:20260720T170000Z','DTSTART:20260919T210000Z','DTEND:20260920T000000Z',
-    'SUMMARY:Casamento de Leide e Rodrigo',
-    'LOCATION:Paróquia São José, Parque Guarani, São Paulo - SP',
-    'DESCRIPTION:Sob a bênção de Deus, convidamos você para celebrar conosco a nossa união.',
-    'END:VEVENT','END:VCALENDAR'
-  ].join('\r\n');
-  const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = 'casamento-leide-e-rodrigo.ics';
-  link.click();
-  URL.revokeObjectURL(link.href);
-  showToast('Evento adicionado para download.');
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: 'Casamento de Leide e Rodrigo',
+    dates: '20260919T210000Z/20260920T000000Z',
+    details: 'Sob a bênção de Deus, convidamos você para celebrar conosco a nossa união.',
+    location: 'Paróquia São José, Parque Guarani, São Paulo - SP'
+  });
+  window.open(`https://www.google.com/calendar/render?${params.toString()}`, '_blank', 'noopener');
 });
 
 document.getElementById('shareButton').addEventListener('click', async () => {
@@ -69,11 +68,81 @@ document.getElementById('shareButton').addEventListener('click', async () => {
   }
 });
 
+document.getElementById('giftButton').addEventListener('click', () => document.getElementById('giftModal').showModal());
+
+document.getElementById('copyPixButton').addEventListener('click', async () => {
+  const key = document.getElementById('pixKey').textContent.trim();
+  try {
+    await navigator.clipboard.writeText(key);
+    showToast('Chave Pix copiada!');
+  } catch {
+    showToast('Não foi possível copiar. Copie manualmente.');
+  }
+});
+
+document.getElementById('galleryButton').addEventListener('click', () => document.getElementById('galleryModal').showModal());
+
+document.getElementById('messageButton').addEventListener('click', () => document.getElementById('messageModal').showModal());
+
+document.getElementById('messageForm').addEventListener('submit', event => {
+  event.preventDefault();
+  const name = document.getElementById('senderName').value.trim();
+  const msg = document.getElementById('senderMessage').value.trim();
+  const text = `Olá, Leide e Rodrigo! Deixando uma mensagem carinhosa para vocês. \n\nDe: ${name}\nMensagem: ${msg}`;
+  window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+  document.getElementById('messageModal').close();
+  event.target.reset();
+});
+
 const music = document.getElementById('backgroundMusic');
 const soundButton = document.getElementById('soundButton');
-soundButton.addEventListener('click', async () => {
+const musicLink = document.getElementById('musicLink');
+
+function setSoundButtonPlaying(isPlaying) {
+  soundButton.classList.toggle('active', isPlaying);
+  soundButton.textContent = isPlaying ? '♫' : '♪';
+  musicLink.classList.toggle('active', isPlaying);
+  musicLink.querySelector('.icon').textContent = isPlaying ? '♫' : '♪';
+  musicLink.lastChild.textContent = isPlaying ? ' Pausar música' : ' Ouvir música';
+}
+
+async function tryPlayMusic() {
   try {
-    if (music.paused) { await music.play(); soundButton.classList.add('active'); soundButton.textContent = '♫'; }
-    else { music.pause(); soundButton.classList.remove('active'); soundButton.textContent = '♪'; }
-  } catch { showToast('Adicione o arquivo musica.mp3 para ativar a música.'); }
+    await music.play();
+    setSoundButtonPlaying(true);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// Tenta tocar assim que a página carrega (funciona em alguns navegadores/configurações)
+tryPlayMusic().then(started => {
+  if (started) return;
+  // Se o navegador bloquear o autoplay, toca assim que o visitante interagir
+  // pela primeira vez com a página (clique, toque ou tecla), em qualquer lugar.
+  const startOnFirstInteraction = async () => {
+    const ok = await tryPlayMusic();
+    if (ok) {
+      ['click', 'touchstart', 'keydown'].forEach(evt =>
+        document.removeEventListener(evt, startOnFirstInteraction)
+      );
+    }
+  };
+  ['click', 'touchstart', 'keydown'].forEach(evt =>
+    document.addEventListener(evt, startOnFirstInteraction, { once: false })
+  );
 });
+
+async function toggleMusic() {
+  if (music.paused) {
+    const ok = await tryPlayMusic();
+    if (!ok) showToast('Toque na tela para ativar a música.');
+  } else {
+    music.pause();
+    setSoundButtonPlaying(false);
+  }
+}
+
+soundButton.addEventListener('click', toggleMusic);
+musicLink.addEventListener('click', toggleMusic);

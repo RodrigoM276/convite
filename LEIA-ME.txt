@@ -1,7 +1,43 @@
 CONVITE INTERATIVO — LEIDE & RODRIGO
 
-1. Abra o arquivo index.html no navegador.
+COMO USAR
+1. Abra o arquivo index.html no navegador para conferir.
 2. Para publicar, envie todos os arquivos desta pasta para Netlify, Vercel ou GitHub Pages.
-3. No arquivo script.js, altere whatsappNumber para o número real dos noivos.
-4. Para música, coloque um arquivo chamado musica.mp3 na mesma pasta.
-5. Para trocar endereço, edite o link mapButton no arquivo index.html.
+
+O QUE FOI CORRIGIDO NESTA VERSÃO
+- A imagem do convite estava referenciando "convite.png", mas o arquivo enviado se
+  chama "NovoConvite01.png" — já corrigido em index.html.
+- Adicionadas meta tags Open Graph (og:title, og:description, og:image) para o link
+  ficar bonito ao compartilhar no WhatsApp/Instagram.
+- Adicionado favicon (ícone de aliança 💍 na aba do navegador).
+- A imagem do convite mostrava ícones de "Lista de presentes", "Galeria" e "Mensagens"
+  que eram só desenho (não clicáveis). Agora existem 3 botões reais no painel com
+  essas mesmas funções.
+- Cidade confirmada: São Paulo - SP (usada no link do mapa e no evento de calendário).
+- Adicionado lembrete de prazo de confirmação (01/09/2026) no painel real.
+
+PARA PERSONALIZAR
+
+WhatsApp
+  Em script.js, a constante whatsappNumber já está com o número correto dos noivos.
+
+Música
+  O arquivo musica.mp3 já está na pasta e funciona ao clicar no botão ♪.
+
+Endereço / Mapa
+  Para trocar o endereço, edite o link do botão "mapButton" em index.html.
+
+Lista de presentes (Pix)
+  Em index.html, procure por id="pixKey" e troque pelo Pix real do casal
+  (e-mail, telefone, CPF ou chave aleatória).
+
+Galeria de fotos
+  Em index.html, dentro de #galleryGrid, cada item é um placeholder (📷).
+  Para usar fotos reais:
+    1. Coloque os arquivos de foto nesta mesma pasta (ex.: foto1.jpg, foto2.jpg...)
+    2. Troque cada <div class="gallery-item placeholder">...</div>
+       por <div class="gallery-item"><img src="foto1.jpg" alt="..."></div>
+
+Mensagens (mural de recados)
+  Já funciona: os convidados escrevem uma mensagem e ela é enviada direto para
+  o WhatsApp dos noivos, sem necessidade de servidor ou banco de dados.

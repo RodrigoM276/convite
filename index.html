@@ -4,8 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#596433" />
-  <meta name="description" content="Convite de casamento de Leide e Rodrigo." />
+  <meta name="description" content="Convite de casamento de Leide e Rodrigo — 19 de setembro de 2026, Paróquia São José, Parque Guarani, São Paulo/SP." />
   <title>Leide & Rodrigo — Convite de Casamento</title>
+
+  <!-- Open Graph / compartilhamento em redes sociais e WhatsApp -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Leide & Rodrigo — Casamento" />
+  <meta property="og:description" content="Sob a bênção de Deus, convidamos você para celebrar conosco o início da nossa união. 19/09/2026 às 18h — Paróquia São José, Parque Guarani." />
+  <meta property="og:image" content="NovoConvite01.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8D%3C/text%3E%3C/svg%3E" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
@@ -17,7 +27,7 @@
   <main class="page-shell">
     <section class="invite-card" aria-labelledby="couple-name">
       <div class="image-wrap">
-        <img src="convite.png" alt="Convite de casamento de Leide e Rodrigo" class="invite-image" />
+        <img src="NovoConvite01.png" alt="Convite de casamento de Leide e Rodrigo" class="invite-image" />
         <button class="sound-button" id="soundButton" type="button" aria-label="Ativar música ambiente">♪</button>
       </div>
 
@@ -34,11 +44,33 @@
         </div>
 
         <div class="actions">
-          <button class="primary" id="rsvpButton" type="button">Confirmar presença</button>
-          <a class="secondary" id="mapButton" href="https://www.google.com/maps/search/?api=1&query=Par%C3%B3quia+S%C3%A3o+Jos%C3%A9+Parque+Guarani+S%C3%A3o+Paulo" target="_blank" rel="noopener">Ver localização</a>
-          <button class="secondary" id="calendarButton" type="button">Adicionar à agenda</button>
-          <button class="secondary" id="shareButton" type="button">Compartilhar convite</button>
+          <button class="primary" id="rsvpButton" type="button"><span class="btn-icon">📞</span> Confirmar presença</button>
         </div>
+
+        <button class="music-link" id="musicLink" type="button"><span class="icon">♪</span> Ouvir música</button>
+
+        <div class="icon-actions">
+          <a class="icon-action" id="mapButton" href="https://www.google.com/maps/search/?api=1&query=Par%C3%B3quia+S%C3%A3o+Jos%C3%A9+Parque+Guarani+S%C3%A3o+Paulo" target="_blank" rel="noopener">
+            <span class="icon-circle">📍</span><span class="icon-label">Localização</span>
+          </a>
+          <button class="icon-action" id="giftButton" type="button">
+            <span class="icon-circle">🎁</span><span class="icon-label">Lista de presentes</span>
+          </button>
+          <button class="icon-action" id="calendarButton" type="button">
+            <span class="icon-circle">📅</span><span class="icon-label">Adicionar à agenda</span>
+          </button>
+          <button class="icon-action" id="galleryButton" type="button">
+            <span class="icon-circle">🖼️</span><span class="icon-label">Galeria</span>
+          </button>
+          <button class="icon-action" id="messageButton" type="button">
+            <span class="icon-circle">💬</span><span class="icon-label">Mensagens</span>
+          </button>
+          <button class="icon-action" id="shareButton" type="button">
+            <span class="icon-circle">📤</span><span class="icon-label">Compartilhar</span>
+          </button>
+        </div>
+
+        <p class="rsvp-deadline">Confirme sua presença até <strong>01/09/2026</strong></p>
 
         <div class="details">
           <article><span>📅</span><div><strong>19 de setembro de 2026</strong><small>Sábado</small></div></article>
@@ -64,8 +96,47 @@
     </form>
   </dialog>
 
-  <audio id="backgroundMusic" loop preload="none">
-    <!-- Adicione um arquivo chamado musica.mp3 nesta pasta para ativar a música. -->
+  <dialog id="giftModal" class="modal">
+    <div class="modal-inner">
+      <button class="close" type="button" data-close="giftModal" aria-label="Fechar">×</button>
+      <p class="eyebrow">Lista de presentes</p>
+      <h2>Um mimo para o casal</h2>
+      <p class="modal-text">Se quiser nos presentear, o carinho de vocês já é mais que suficiente — mas quem quiser contribuir com a lua de mel pode usar nossa chave Pix:</p>
+      <div class="pix-box">
+        <span id="pixKey">leidemendonca267@gmail.com</span>
+        <button class="primary" id="copyPixButton" type="button">Copiar chave</button>
+      </div>
+      
+    </div>
+  </dialog>
+
+  <dialog id="galleryModal" class="modal modal-wide">
+    <div class="modal-inner">
+      <button class="close" type="button" data-close="galleryModal" aria-label="Fechar">×</button>
+      <p class="eyebrow">Nossa história</p>
+      <h2>Galeria de fotos</h2>
+      <div class="gallery-grid" id="galleryGrid">
+        <div class="gallery-item"><img src="img/foto1.png" alt="Foto de Leide e Rodrigo" loading="lazy" /></div>
+        <div class="gallery-item"><img src="img/Ana.jpeg" alt="Foto de Leide e Rodrigo" loading="lazy" /></div>
+        <div class="gallery-item"><img src="img/Leti.jpeg" alt="Foto de Leide e Rodrigo" loading="lazy" /></div>
+        <div class="gallery-item"><img src="img/Soph.jpeg" alt="Foto de Leide e Rodrigo" loading="lazy" /></div>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="messageModal" class="modal">
+    <form id="messageForm" method="dialog" class="modal-inner">
+      <button class="close" type="button" data-close="messageModal" aria-label="Fechar">×</button>
+      <p class="eyebrow">Mural de recados</p>
+      <h2>Deixe seu carinho para o casal</h2>
+      <label>Seu nome<input id="senderName" name="senderName" required autocomplete="name" /></label>
+      <label>Sua mensagem<textarea id="senderMessage" name="senderMessage" rows="4" required placeholder="Escreva uma mensagem carinhosa para Leide e Rodrigo..."></textarea></label>
+      <button class="primary full" type="submit">Enviar mensagem</button>
+      <small class="hint">A mensagem é enviada diretamente pelo WhatsApp dos noivos.</small>
+    </form>
+  </dialog>
+
+  <audio id="backgroundMusic" loop preload="auto">
     <source src="musica.mp3" type="audio/mpeg" />
   </audio>
 
