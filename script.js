@@ -30,6 +30,20 @@ document.getElementById('rsvpButton').addEventListener('click', () => modal.show
 document.getElementById('closeModal').addEventListener('click', () => modal.close());
 modal.addEventListener('click', event => { if (event.target === modal) modal.close(); });
 
+const pixKey = 'leidemendonca267@gmail.com';
+const pixModal = document.getElementById('pixModal');
+document.getElementById('giftButton').addEventListener('click', () => pixModal.showModal());
+document.getElementById('closePixModal').addEventListener('click', () => pixModal.close());
+pixModal.addEventListener('click', event => { if (event.target === pixModal) pixModal.close(); });
+document.getElementById('copyPixButton').addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(pixKey);
+    showToast('Chave Pix copiada!');
+  } catch {
+    showToast('Não foi possível copiar. Copie manualmente.');
+  }
+});
+
 document.getElementById('rsvpForm').addEventListener('submit', async event => {
   event.preventDefault();
   const name = document.getElementById('guestName').value.trim();

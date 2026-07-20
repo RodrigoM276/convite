@@ -46,7 +46,9 @@
           <article><span>📍</span><div><strong>Paróquia São José</strong><small>Parque Guarani — São Paulo/SP</small></div></article>
         </div>
 
-        <p class="gift-note">Sua presença é o nosso maior presente.</p>
+        <button class="gift-note" id="giftButton" type="button" aria-haspopup="dialog">
+          <span aria-hidden="true">🎁</span> Sua presença é o nosso maior presente.
+        </button>
       </div>
     </section>
   </main>
@@ -62,6 +64,17 @@
       <button class="primary full" type="submit">Enviar pelo WhatsApp</button>
       <small class="hint">O número do WhatsApp pode ser alterado no arquivo <code>script.js</code>.</small>
     </form>
+  </dialog>
+
+  <dialog id="pixModal" class="modal">
+    <div class="pix-panel">
+      <button class="close" type="button" id="closePixModal" aria-label="Fechar">×</button>
+      <p class="eyebrow">Presente</p>
+      <h2>Chave Pix</h2>
+      <p class="message">Se quiser nos presentear, ficaremos muito gratos!</p>
+      <p class="pix-key" id="pixKeyText">leidemendonca267@gmail.com</p>
+      <button class="primary full" type="button" id="copyPixButton">Copiar chave Pix</button>
+    </div>
   </dialog>
 
   <audio id="backgroundMusic" loop preload="none">
