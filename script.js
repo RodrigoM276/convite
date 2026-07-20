@@ -30,14 +30,46 @@ document.getElementById('rsvpButton').addEventListener('click', () => modal.show
 document.getElementById('closeModal').addEventListener('click', () => modal.close());
 modal.addEventListener('click', event => { if (event.target === modal) modal.close(); });
 
-document.getElementById('rsvpForm').addEventListener('submit', event => {
+const pixKey = 'leidemendonca267@gmail.com';
+const pixModal = document.getElementById('pixModal');
+document.getElementById('giftButton').addEventListener('click', () => pixModal.showModal());
+document.getElementById('closePixModal').addEventListener('click', () => pixModal.close());
+pixModal.addEventListener('click', event => { if (event.target === pixModal) pixModal.close(); });
+document.getElementById('copyPixButton').addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(pixKey);
+    showToast('Chave Pix copiada!');
+  } catch {
+    showToast('Não foi possível copiar. Copie manualmente.');
+  }
+});
+
+document.getElementById('rsvpForm').addEventListener('submit', async event => {
   event.preventDefault();
   const name = document.getElementById('guestName').value.trim();
   const count = document.getElementById('guestCount').value;
   const message = document.getElementById('guestMessage').value.trim();
-  const text = `Olá, Leide e Rodrigo! Confirmo minha presença no casamento.\n\nNome: ${name}\nNúmero de convidados: ${count}${message ? `\nMensagem: ${message}` : ''}`;
-  window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
-  modal.close();
+  const submitButton = event.submitter;
+  if (submitButton) submitButton.disabled = true;
+
+  try {
+    const response = await fetch('/api/rsvp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, guestCount: Number(count), message }),
+    });
+    if (!response.ok) throw new Error('Falha ao confirmar presença.');
+
+    const text = `Olá, Leide e Rodrigo! Confirmo minha presença no casamento.\n\nNome: ${name}\nNúmero de convidados: ${count}${message ? `\nMensagem: ${message}` : ''}`;
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    showToast('Presença confirmada! Obrigado 💚');
+    modal.close();
+    event.target.reset();
+  } catch (error) {
+    showToast('Não foi possível confirmar sua presença. Tente novamente.');
+  } finally {
+    if (submitButton) submitButton.disabled = false;
+  }
 });
 
 document.getElementById('calendarButton').addEventListener('click', () => {

@@ -17,7 +17,7 @@
   <main class="page-shell">
     <section class="invite-card" aria-labelledby="couple-name">
       <div class="image-wrap">
-        <img src="convite.png" alt="Convite de casamento de Leide e Rodrigo" class="invite-image" />
+        <img src="NovoConvite01.png" alt="Convite de casamento de Leide e Rodrigo" class="invite-image" />
         <button class="sound-button" id="soundButton" type="button" aria-label="Ativar música ambiente">♪</button>
       </div>
 
@@ -35,9 +35,19 @@
 
         <div class="actions">
           <button class="primary" id="rsvpButton" type="button">Confirmar presença</button>
-          <a class="secondary" id="mapButton" href="https://www.google.com/maps/search/?api=1&query=Par%C3%B3quia+S%C3%A3o+Jos%C3%A9+Parque+Guarani+S%C3%A3o+Paulo" target="_blank" rel="noopener">Ver localização</a>
           <button class="secondary" id="calendarButton" type="button">Adicionar à agenda</button>
           <button class="secondary" id="shareButton" type="button">Compartilhar convite</button>
+        </div>
+
+        <div class="quick-icons">
+          <a class="icon-chip" id="mapButton" href="https://www.google.com/maps/search/?api=1&query=Par%C3%B3quia+S%C3%A3o+Jos%C3%A9+Parque+Guarani+S%C3%A3o+Paulo" target="_blank" rel="noopener">
+            <span class="icon-circle" aria-hidden="true">⛪</span>
+            <small>Localização</small>
+          </a>
+          <button class="icon-chip" id="giftButton" type="button" aria-haspopup="dialog">
+            <span class="icon-circle" aria-hidden="true">🎁</span>
+            <small>Lista de presentes</small>
+          </button>
         </div>
 
         <div class="details">
@@ -62,6 +72,17 @@
       <button class="primary full" type="submit">Enviar pelo WhatsApp</button>
       <small class="hint">O número do WhatsApp pode ser alterado no arquivo <code>script.js</code>.</small>
     </form>
+  </dialog>
+
+  <dialog id="pixModal" class="modal">
+    <div class="pix-panel">
+      <button class="close" type="button" id="closePixModal" aria-label="Fechar">×</button>
+      <p class="eyebrow">Presente</p>
+      <h2>Chave Pix</h2>
+      <p class="message">Se quiser nos presentear, ficaremos muito gratos!</p>
+      <p class="pix-key" id="pixKeyText">leidemendonca267@gmail.com</p>
+      <button class="primary full" type="button" id="copyPixButton">Copiar chave Pix</button>
+    </div>
   </dialog>
 
   <audio id="backgroundMusic" loop preload="none">
