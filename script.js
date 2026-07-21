@@ -48,14 +48,33 @@ document.getElementById('rsvpForm').addEventListener('submit', event => {
 });
 
 document.getElementById('calendarButton').addEventListener('click', () => {
-  const params = new URLSearchParams({
-    action: 'TEMPLATE',
-    text: 'Casamento de Leide e Rodrigo',
-    dates: '20260919T210000Z/20260920T000000Z',
-    details: 'Sob a bênção de Deus, convidamos você para celebrar conosco a nossa união.',
-    location: 'Paróquia São José, Parque Guarani, São Paulo - SP'
-  });
-  window.open(`https://www.google.com/calendar/render?${params.toString()}`, '_blank', 'noopener');
+  const title = 'Casamento de Leide e Rodrigo';
+  const details = 'Sob a bênção de Deus, convidamos você para celebrar conosco a nossa união.';
+  const location = 'Paróquia São José, Parque Guarani, São Paulo - SP';
+  const start = '20260919T210000Z';
+  const end = '20260920T000000Z';
+
+  const isIOS = /iP(hone|od|ad)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+  if (isIOS) {
+    const icsContent = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'BEGIN:VEVENT',
+      `DTSTART:${start}`,
+      `DTEND:${end}`,
+      `SUMMARY:${title}`,
+      `DESCRIPTION:${details}`,
+      `LOCATION:${location}`,
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n');
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    window.location.href = URL.createObjectURL(blob);
+  } else {
+    const params = new URLSearchParams({ action: 'TEMPLATE', text: title, dates: `${start}/${end}`, details, location });
+    window.open(`https://www.google.com/calendar/render?${params.toString()}`, '_blank', 'noopener');
+  }
 });
 
 document.getElementById('shareButton').addEventListener('click', async () => {
