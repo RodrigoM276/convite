@@ -1,6 +1,8 @@
 const weddingDate = new Date('2026-09-19T18:00:00-03:00');
 // Troque pelo WhatsApp dos noivos no formato: 5511999999999
 const whatsappNumber = '5511951167811';
+// URL do Apps Script (Web App) publicado — veja instruções de deploy. Deixe vazio para desativar o envio à planilha.
+const sheetWebhookUrl = 'https://script.google.com/macros/s/AKfycbwcTa0OI8Ir2eHiTQwD0-Y3NLq6L7Ktu5Jxnluui10g37D0GXyjitlq9ewd3oUObtwY/exec';
 
 const pad = value => String(value).padStart(2, '0');
 const toast = document.getElementById('toast');
@@ -43,6 +45,15 @@ document.getElementById('rsvpForm').addEventListener('submit', event => {
   const count = document.getElementById('guestCount').value;
   const message = document.getElementById('guestMessage').value.trim();
   const text = `Olá, Leide e Rodrigo! Confirmo minha presença no casamento.\n\nNome: ${name}\nNúmero de convidados: ${count}${message ? `\nMensagem: ${message}` : ''}`;
+
+  if (sheetWebhookUrl) {
+    fetch(sheetWebhookUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: new URLSearchParams({ nome: name, convidados: count, mensagem: message })
+    }).catch(() => {});
+  }
+
   window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
   modal.close();
 });
