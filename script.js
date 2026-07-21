@@ -101,6 +101,20 @@ document.getElementById('copyPixButton').addEventListener('click', async () => {
 
 document.getElementById('galleryButton').addEventListener('click', () => document.getElementById('galleryModal').showModal());
 
+const lightboxModal = document.getElementById('lightboxModal');
+const lightboxImg = document.getElementById('lightboxImg');
+document.querySelectorAll('#galleryGrid img').forEach(img => {
+  img.addEventListener('click', () => {
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightboxModal.showModal();
+  });
+});
+document.getElementById('lightboxClose').addEventListener('click', () => lightboxModal.close());
+lightboxModal.addEventListener('click', event => {
+  if (event.target === lightboxModal) lightboxModal.close();
+});
+
 document.getElementById('messageButton').addEventListener('click', () => document.getElementById('messageModal').showModal());
 
 document.getElementById('messageForm').addEventListener('submit', event => {
